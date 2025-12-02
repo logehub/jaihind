@@ -220,6 +220,23 @@
       display: flex;
       flex-direction: column;
       justify-content: space-between;
+      position: relative;
+      overflow: hidden;
+    }
+    .card-bg {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      z-index: 0;
+      opacity: 0.18;
+      object-fit: cover;
+      pointer-events: none;
+    }
+    .card > div, .card > a {
+      position: relative;
+      z-index: 1;
     }
     .card h3 {
       font-size: 1.05rem;
@@ -480,6 +497,7 @@
     </div>
     <div class="cards">
       <article class="card">
+        <img src="assets/PrimarySchool.jpg" alt="Primary School" class="card-bg" />
         <div>
           <span>Primary School</span>
           <h3>Jai Hind Primary School</h3>
@@ -494,6 +512,7 @@
       </article>
 
       <article class="card">
+        <img src="assets/JuniorCollege.jpg" alt="High School & Junior College" class="card-bg" />
         <div>
           <span>High School & Junior College</span>
           <h3>Jai Hind High School & Junior College</h3>
@@ -508,6 +527,7 @@
       </article>
 
       <article class="card">
+        <img src="assets/Mucc.jpg" alt="Senior College" class="card-bg" />
         <div>
           <span>Senior College</span>
           <h3>M.U. College</h3>
