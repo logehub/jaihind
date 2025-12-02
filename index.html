@@ -313,6 +313,73 @@
       opacity: 0.7;
     }
 
+    /* Carousel */
+    .carousel {
+      position: relative;
+      width: 100%;
+      max-width: 100%;
+      overflow: hidden;
+      background: #000;
+    }
+    .carousel-container {
+      display: flex;
+      transition: transform 0.5s ease-in-out;
+    }
+    .carousel-slide {
+      min-width: 100%;
+      height: 400px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .carousel-slide img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+    .carousel-btn {
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
+      background: rgba(255,255,255,0.8);
+      border: none;
+      padding: 1rem;
+      cursor: pointer;
+      font-size: 1.5rem;
+      z-index: 10;
+      transition: background 0.2s;
+    }
+    .carousel-btn:hover {
+      background: rgba(255,255,255,1);
+    }
+    .carousel-btn.prev {
+      left: 10px;
+    }
+    .carousel-btn.next {
+      right: 10px;
+    }
+    .carousel-indicators {
+      position: absolute;
+      bottom: 15px;
+      left: 50%;
+      transform: translateX(-50%);
+      display: flex;
+      gap: 8px;
+      z-index: 10;
+    }
+    .carousel-indicator {
+      width: 12px;
+      height: 12px;
+      border-radius: 50%;
+      background: rgba(255,255,255,0.5);
+      border: none;
+      cursor: pointer;
+      transition: background 0.3s;
+    }
+    .carousel-indicator.active {
+      background: rgba(255,255,255,1);
+    }
+
     @media (max-width: 768px) {
       .hero-inner,
       .history-inner {
@@ -323,6 +390,9 @@
       }
       .hero-card {
         order: -1;
+      }
+      .carousel-slide {
+        height: 250px;
       }
     }
   </style>
@@ -348,6 +418,24 @@
       </nav>
     </div>
 </header>
+
+<!-- Carousel -->
+<section class="carousel">
+  <div class="carousel-container" id="carouselContainer">
+    <div class="carousel-slide">
+      <img src="assets/slide-1.jpg" alt="Slide 1">
+    </div>
+    <div class="carousel-slide">
+      <img src="assets/slide-2.jpg" alt="Slide 2">
+    </div>
+  </div>
+  <button class="carousel-btn prev" onclick="moveSlide(-1)">&#10094;</button>
+  <button class="carousel-btn next" onclick="moveSlide(1)">&#10095;</button>
+  <div class="carousel-indicators">
+    <button class="carousel-indicator active" onclick="currentSlide(0)"></button>
+    <button class="carousel-indicator" onclick="currentSlide(1)"></button>
+  </div>
+</section>
 
 <main id="home">
 
@@ -475,6 +563,38 @@
     </div>
   </div>
 </footer>
+
+<script>
+  let currentIndex = 0;
+  const slides = document.querySelectorAll('.carousel-slide');
+  const indicators = document.querySelectorAll('.carousel-indicator');
+  const container = document.getElementById('carouselContainer');
+
+  function showSlide(index) {
+    if (index >= slides.length) currentIndex = 0;
+    else if (index < 0) currentIndex = slides.length - 1;
+    else currentIndex = index;
+
+    container.style.transform = `translateX(-${currentIndex * 100}%)`;
+    
+    indicators.forEach((indicator, i) => {
+      indicator.classList.toggle('active', i === currentIndex);
+    });
+  }
+
+  function moveSlide(direction) {
+    showSlide(currentIndex + direction);
+  }
+
+  function currentSlide(index) {
+    showSlide(index);
+  }
+
+  // Auto-advance carousel every 5 seconds
+  setInterval(() => {
+    moveSlide(1);
+  }, 5000);
+</script>
 
 </body>
 </html>
